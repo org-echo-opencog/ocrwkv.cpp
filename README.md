@@ -6,6 +6,35 @@ Besides the usual **FP32**, it supports **FP16**, **quantized INT4, INT5 and INT
 
 This project provides [a C library rwkv.h](rwkv.h) and [a convinient Python wrapper](python%2Frwkv_cpp%2Frwkv_cpp_model.py) for it.
 
+## 🧠 OpenCog ML Inference Engine
+
+**NEW**: This repository now includes an **OpenCog ML inference engine** that provides a pure inference interface for RWKV models, designed for integration with OpenCog's cognitive architecture.
+
+### Key Features
+- **Pure Inference Interface**: No training, focused solely on inference operations
+- **Tensor Abstraction**: High-level tensor operations compatible with OpenCog
+- **Multi-threaded Support**: Engine cloning for parallel inference
+- **Python & C APIs**: Both low-level C and high-level Python interfaces
+- **Comprehensive Testing**: Full test suite and examples
+
+### Quick Start
+```c
+#include "opencog_ml.h"
+
+// Initialize engine
+struct opencog_ml_engine_config config = {
+    .model_path = "model.bin",
+    .n_threads = 4
+};
+struct opencog_ml_engine* engine = opencog_ml_init_engine(&config);
+
+// Perform inference
+struct opencog_ml_inference_result* result = opencog_ml_infer_token(engine, 42, NULL);
+printf("Predicted token: %u\n", result->predicted_token);
+```
+
+See [README_OPENCOG_ML.md](README_OPENCOG_ML.md) and [INTEGRATION_GUIDE.md](INTEGRATION_GUIDE.md) for details.
+
 [RWKV](https://arxiv.org/abs/2305.13048) is a large language model architecture. In contrast to Transformer with `O(n^2)` attention, RWKV requires only state from previous step to calculate logits. This makes RWKV very CPU-friendly on large context lenghts.
 
 This project supports RWKV [v4](https://huggingface.co/BlinkDL/rwkv-4-pile-14b), [v5](https://huggingface.co/BlinkDL/rwkv-5-world), [v6](https://huggingface.co/BlinkDL/rwkv-6-world) and the latest [v7](https://huggingface.co/BlinkDL/rwkv-7-world) architectures.

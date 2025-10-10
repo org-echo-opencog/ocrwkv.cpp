@@ -65,6 +65,16 @@ CMAKE_BINARY_DIR = /home/runner/work/ocrwkv.cpp/ocrwkv.cpp
 #=============================================================================
 # Targets provided globally by CMake.
 
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running tests..."
+	/usr/local/bin/ctest --force-new-ctest-process $(ARGS)
+.PHONY : test
+
+# Special rule for the target test
+test/fast: test
+.PHONY : test/fast
+
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running CMake cache editor..."
@@ -162,6 +172,32 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named opencog_ml_example
+
+# Build rule for target.
+opencog_ml_example: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 opencog_ml_example
+.PHONY : opencog_ml_example
+
+# fast build rule for target.
+opencog_ml_example/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/opencog_ml_example.dir/build.make CMakeFiles/opencog_ml_example.dir/build
+.PHONY : opencog_ml_example/fast
+
+#=============================================================================
+# Target rules for targets named test_opencog_ml
+
+# Build rule for target.
+test_opencog_ml: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_opencog_ml
+.PHONY : test_opencog_ml
+
+# fast build rule for target.
+test_opencog_ml/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_opencog_ml.dir/build.make CMakeFiles/test_opencog_ml.dir/build
+.PHONY : test_opencog_ml/fast
+
+#=============================================================================
 # Target rules for targets named rwkv
 
 # Build rule for target.
@@ -173,6 +209,136 @@ rwkv: cmake_check_build_system
 rwkv/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/rwkv.dir/build.make CMakeFiles/rwkv.dir/build
 .PHONY : rwkv/fast
+
+#=============================================================================
+# Target rules for targets named opencog_ml
+
+# Build rule for target.
+opencog_ml: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 opencog_ml
+.PHONY : opencog_ml
+
+# fast build rule for target.
+opencog_ml/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/opencog_ml.dir/build.make CMakeFiles/opencog_ml.dir/build
+.PHONY : opencog_ml/fast
+
+#=============================================================================
+# Target rules for targets named test_ggml_basics
+
+# Build rule for target.
+test_ggml_basics: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_ggml_basics
+.PHONY : test_ggml_basics
+
+# fast build rule for target.
+test_ggml_basics/fast:
+	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_ggml_basics.dir/build.make tests/CMakeFiles/test_ggml_basics.dir/build
+.PHONY : test_ggml_basics/fast
+
+#=============================================================================
+# Target rules for targets named test_quantized_matmul_on_gpu
+
+# Build rule for target.
+test_quantized_matmul_on_gpu: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_quantized_matmul_on_gpu
+.PHONY : test_quantized_matmul_on_gpu
+
+# fast build rule for target.
+test_quantized_matmul_on_gpu/fast:
+	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_quantized_matmul_on_gpu.dir/build.make tests/CMakeFiles/test_quantized_matmul_on_gpu.dir/build
+.PHONY : test_quantized_matmul_on_gpu/fast
+
+#=============================================================================
+# Target rules for targets named test_tiny_rwkv
+
+# Build rule for target.
+test_tiny_rwkv: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_tiny_rwkv
+.PHONY : test_tiny_rwkv
+
+# fast build rule for target.
+test_tiny_rwkv/fast:
+	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_tiny_rwkv.dir/build.make tests/CMakeFiles/test_tiny_rwkv.dir/build
+.PHONY : test_tiny_rwkv/fast
+
+#=============================================================================
+# Target rules for targets named test_quantization_format_compatibility
+
+# Build rule for target.
+test_quantization_format_compatibility: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_quantization_format_compatibility
+.PHONY : test_quantization_format_compatibility
+
+# fast build rule for target.
+test_quantization_format_compatibility/fast:
+	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_quantization_format_compatibility.dir/build.make tests/CMakeFiles/test_quantization_format_compatibility.dir/build
+.PHONY : test_quantization_format_compatibility/fast
+
+#=============================================================================
+# Target rules for targets named test_logit_calculation_skipping
+
+# Build rule for target.
+test_logit_calculation_skipping: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_logit_calculation_skipping
+.PHONY : test_logit_calculation_skipping
+
+# fast build rule for target.
+test_logit_calculation_skipping/fast:
+	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_logit_calculation_skipping.dir/build.make tests/CMakeFiles/test_logit_calculation_skipping.dir/build
+.PHONY : test_logit_calculation_skipping/fast
+
+#=============================================================================
+# Target rules for targets named test_eval_sequence_in_chunks
+
+# Build rule for target.
+test_eval_sequence_in_chunks: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_eval_sequence_in_chunks
+.PHONY : test_eval_sequence_in_chunks
+
+# fast build rule for target.
+test_eval_sequence_in_chunks/fast:
+	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_eval_sequence_in_chunks.dir/build.make tests/CMakeFiles/test_eval_sequence_in_chunks.dir/build
+.PHONY : test_eval_sequence_in_chunks/fast
+
+#=============================================================================
+# Target rules for targets named test_context_cloning
+
+# Build rule for target.
+test_context_cloning: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_context_cloning
+.PHONY : test_context_cloning
+
+# fast build rule for target.
+test_context_cloning/fast:
+	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_context_cloning.dir/build.make tests/CMakeFiles/test_context_cloning.dir/build
+.PHONY : test_context_cloning/fast
+
+#=============================================================================
+# Target rules for targets named rwkv_cpu_info
+
+# Build rule for target.
+rwkv_cpu_info: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 rwkv_cpu_info
+.PHONY : rwkv_cpu_info
+
+# fast build rule for target.
+rwkv_cpu_info/fast:
+	$(MAKE) $(MAKESILENT) -f extras/CMakeFiles/rwkv_cpu_info.dir/build.make extras/CMakeFiles/rwkv_cpu_info.dir/build
+.PHONY : rwkv_cpu_info/fast
+
+#=============================================================================
+# Target rules for targets named rwkv_quantize
+
+# Build rule for target.
+rwkv_quantize: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 rwkv_quantize
+.PHONY : rwkv_quantize
+
+# fast build rule for target.
+rwkv_quantize/fast:
+	$(MAKE) $(MAKESILENT) -f extras/CMakeFiles/rwkv_quantize.dir/build.make extras/CMakeFiles/rwkv_quantize.dir/build
+.PHONY : rwkv_quantize/fast
 
 #=============================================================================
 # Target rules for targets named ggml-base
@@ -213,6 +379,54 @@ ggml-cpu/fast:
 	$(MAKE) $(MAKESILENT) -f ggml/src/CMakeFiles/ggml-cpu.dir/build.make ggml/src/CMakeFiles/ggml-cpu.dir/build
 .PHONY : ggml-cpu/fast
 
+examples/opencog_ml_example.o: examples/opencog_ml_example.c.o
+.PHONY : examples/opencog_ml_example.o
+
+# target to build an object file
+examples/opencog_ml_example.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/opencog_ml_example.dir/build.make CMakeFiles/opencog_ml_example.dir/examples/opencog_ml_example.c.o
+.PHONY : examples/opencog_ml_example.c.o
+
+examples/opencog_ml_example.i: examples/opencog_ml_example.c.i
+.PHONY : examples/opencog_ml_example.i
+
+# target to preprocess a source file
+examples/opencog_ml_example.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/opencog_ml_example.dir/build.make CMakeFiles/opencog_ml_example.dir/examples/opencog_ml_example.c.i
+.PHONY : examples/opencog_ml_example.c.i
+
+examples/opencog_ml_example.s: examples/opencog_ml_example.c.s
+.PHONY : examples/opencog_ml_example.s
+
+# target to generate assembly for a file
+examples/opencog_ml_example.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/opencog_ml_example.dir/build.make CMakeFiles/opencog_ml_example.dir/examples/opencog_ml_example.c.s
+.PHONY : examples/opencog_ml_example.c.s
+
+opencog_ml.o: opencog_ml.cpp.o
+.PHONY : opencog_ml.o
+
+# target to build an object file
+opencog_ml.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/opencog_ml.dir/build.make CMakeFiles/opencog_ml.dir/opencog_ml.cpp.o
+.PHONY : opencog_ml.cpp.o
+
+opencog_ml.i: opencog_ml.cpp.i
+.PHONY : opencog_ml.i
+
+# target to preprocess a source file
+opencog_ml.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/opencog_ml.dir/build.make CMakeFiles/opencog_ml.dir/opencog_ml.cpp.i
+.PHONY : opencog_ml.cpp.i
+
+opencog_ml.s: opencog_ml.cpp.s
+.PHONY : opencog_ml.s
+
+# target to generate assembly for a file
+opencog_ml.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/opencog_ml.dir/build.make CMakeFiles/opencog_ml.dir/opencog_ml.cpp.s
+.PHONY : opencog_ml.cpp.s
+
 rwkv.o: rwkv.cpp.o
 .PHONY : rwkv.o
 
@@ -237,6 +451,30 @@ rwkv.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/rwkv.dir/build.make CMakeFiles/rwkv.dir/rwkv.cpp.s
 .PHONY : rwkv.cpp.s
 
+tests/test_opencog_ml.o: tests/test_opencog_ml.c.o
+.PHONY : tests/test_opencog_ml.o
+
+# target to build an object file
+tests/test_opencog_ml.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_opencog_ml.dir/build.make CMakeFiles/test_opencog_ml.dir/tests/test_opencog_ml.c.o
+.PHONY : tests/test_opencog_ml.c.o
+
+tests/test_opencog_ml.i: tests/test_opencog_ml.c.i
+.PHONY : tests/test_opencog_ml.i
+
+# target to preprocess a source file
+tests/test_opencog_ml.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_opencog_ml.dir/build.make CMakeFiles/test_opencog_ml.dir/tests/test_opencog_ml.c.i
+.PHONY : tests/test_opencog_ml.c.i
+
+tests/test_opencog_ml.s: tests/test_opencog_ml.c.s
+.PHONY : tests/test_opencog_ml.s
+
+# target to generate assembly for a file
+tests/test_opencog_ml.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_opencog_ml.dir/build.make CMakeFiles/test_opencog_ml.dir/tests/test_opencog_ml.c.s
+.PHONY : tests/test_opencog_ml.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -249,13 +487,35 @@ help:
 	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
+	@echo "... test"
 	@echo "... ggml"
 	@echo "... ggml-base"
 	@echo "... ggml-cpu"
+	@echo "... opencog_ml"
+	@echo "... opencog_ml_example"
 	@echo "... rwkv"
+	@echo "... rwkv_cpu_info"
+	@echo "... rwkv_quantize"
+	@echo "... test_context_cloning"
+	@echo "... test_eval_sequence_in_chunks"
+	@echo "... test_ggml_basics"
+	@echo "... test_logit_calculation_skipping"
+	@echo "... test_opencog_ml"
+	@echo "... test_quantization_format_compatibility"
+	@echo "... test_quantized_matmul_on_gpu"
+	@echo "... test_tiny_rwkv"
+	@echo "... examples/opencog_ml_example.o"
+	@echo "... examples/opencog_ml_example.i"
+	@echo "... examples/opencog_ml_example.s"
+	@echo "... opencog_ml.o"
+	@echo "... opencog_ml.i"
+	@echo "... opencog_ml.s"
 	@echo "... rwkv.o"
 	@echo "... rwkv.i"
 	@echo "... rwkv.s"
+	@echo "... tests/test_opencog_ml.o"
+	@echo "... tests/test_opencog_ml.i"
+	@echo "... tests/test_opencog_ml.s"
 .PHONY : help
 
 

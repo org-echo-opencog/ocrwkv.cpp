@@ -15,6 +15,15 @@ build-no-accel/
 build-sanitize-addr/
 build-sanitize-thread/
 
+# Build artifacts
+CMakeCache.txt
+CMakeFiles/
+Makefile
+cmake_install.cmake
+*.so
+*.dylib
+*.exe
+
 models/*
 
 /main

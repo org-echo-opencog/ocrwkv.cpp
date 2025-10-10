@@ -171,6 +171,16 @@ if (NOT RWKV_STANDALONE)
     enable_testing()
     add_subdirectory(tests)
     add_subdirectory(extras)
+    
+    # Add OpenCog ML examples
+    add_executable(opencog_ml_example examples/opencog_ml_example.c)
+    target_link_libraries(opencog_ml_example opencog_ml)
+    
+    # Add OpenCog ML tests
+    add_executable(test_opencog_ml tests/test_opencog_ml.c)
+    target_link_libraries(test_opencog_ml opencog_ml)
+    add_test(NAME opencog_ml_tests COMMAND test_opencog_ml)
+    
 elseif()
     set(GGML_STANDALONE ON)
 endif()
@@ -184,6 +194,13 @@ if (RWKV_BUILD_SHARED_LIBRARY)
     add_library(rwkv SHARED rwkv.cpp rwkv.h)
 else()
     add_library(rwkv rwkv.cpp rwkv.h)
+endif()
+
+# Build OpenCog ML library
+if (RWKV_BUILD_SHARED_LIBRARY)
+    add_library(opencog_ml SHARED opencog_ml.cpp opencog_ml.h)
+else()
+    add_library(opencog_ml opencog_ml.cpp opencog_ml.h)
 endif()
 
 if (GGML_OPENMP)
@@ -268,6 +285,11 @@ target_include_directories(rwkv PUBLIC .)
 target_include_directories(rwkv PRIVATE ggml/include ggml/src)
 target_compile_features(rwkv PUBLIC cxx_std_11)
 
+# OpenCog ML library configuration
+target_include_directories(opencog_ml PUBLIC .)
+target_include_directories(opencog_ml PRIVATE ggml/include ggml/src)
+target_compile_features(opencog_ml PUBLIC cxx_std_11)
+
 if (GGML_METAL)
     set(RWKV_EXTRA_LIBS ${RWKV_EXTRA_LIBS} $<TARGET_OBJECTS:ggml-metal> $<TARGET_OBJECTS:ggml-blas>)
 endif()
@@ -282,6 +304,9 @@ if (GGML_RPC)
 endif()
 
 target_link_libraries(rwkv PRIVATE $<TARGET_OBJECTS:ggml> $<TARGET_OBJECTS:ggml-base> $<TARGET_OBJECTS:ggml-cpu> ${RWKV_EXTRA_LIBS})
+
+# Link OpenCog ML with RWKV and GGML
+target_link_libraries(opencog_ml PRIVATE rwkv $<TARGET_OBJECTS:ggml> $<TARGET_OBJECTS:ggml-base> $<TARGET_OBJECTS:ggml-cpu> ${RWKV_EXTRA_LIBS})
 
 if (RWKV_BUILD_SHARED_LIBRARY)
     set_target_properties(ggml PROPERTIES POSITION_INDEPENDENT_CODE ON)
@@ -301,4 +326,8 @@ if (RWKV_BUILD_SHARED_LIBRARY)
     target_compile_definitions(ggml PRIVATE GGML_SHARED GGML_BUILD)
     set_target_properties(rwkv PROPERTIES POSITION_INDEPENDENT_CODE ON)
     target_compile_definitions(rwkv PRIVATE RWKV_SHARED RWKV_BUILD)
+    
+    # OpenCog ML shared library configuration
+    set_target_properties(opencog_ml PROPERTIES POSITION_INDEPENDENT_CODE ON)
+    target_compile_definitions(opencog_ml PRIVATE OPENCOG_ML_SHARED OPENCOG_ML_BUILD)
 endif()

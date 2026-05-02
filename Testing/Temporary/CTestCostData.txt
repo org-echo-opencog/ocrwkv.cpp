@@ -1,9 +1,9 @@
-opencog_ml_tests 2 0.00198725
-test_ggml_basics 1 0.00373488
-test_quantized_matmul_on_gpu 1 0.00107986
-test_tiny_rwkv 1 0.669844
-test_quantization_format_compatibility 1 0.0704637
-test_logit_calculation_skipping 1 0.0289562
-test_eval_sequence_in_chunks 1 0.159129
-test_context_cloning 1 0.0242167
+opencog_ml_tests 5 0.00233943
+test_ggml_basics 3 0.0012168
+test_quantized_matmul_on_gpu 3 0.000314127
+test_tiny_rwkv 3 0.229405
+test_quantization_format_compatibility 3 0.0237792
+test_logit_calculation_skipping 3 0.0096037
+test_eval_sequence_in_chunks 3 0.0537519
+test_context_cloning 3 0.00813945
 ---

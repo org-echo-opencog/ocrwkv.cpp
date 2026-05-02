@@ -91,7 +91,7 @@ int main(int argc, char* argv[]) {
     if (result && result->error == OPENCOG_ML_ERROR_NONE) {
         printf("Input token: %u\n", test_token);
         printf("Predicted next token: %u\n", result->predicted_token);
-        printf("Confidence: %.4f\n", result->confidence);
+        printf("Confidence: %.4f\n", (double)result->confidence);
         printf("Logits tensor size: %zu\n", result->logits->size);
         printf("Output state tensor size: %zu\n", result->state->size);
     } else {
@@ -118,7 +118,7 @@ int main(int argc, char* argv[]) {
         }
         printf("]\n");
         printf("Predicted next token: %u\n", seq_result->predicted_token);
-        printf("Confidence: %.4f\n", seq_result->confidence);
+        printf("Confidence: %.4f\n", (double)seq_result->confidence);
     } else {
         printf("Sequence inference failed\n");
         if (seq_result) {
@@ -134,7 +134,7 @@ int main(int argc, char* argv[]) {
     
     if (custom_result && custom_result->error == OPENCOG_ML_ERROR_NONE) {
         printf("Custom sampling result - predicted token: %u, confidence: %.4f\n",
-               custom_result->predicted_token, custom_result->confidence);
+               custom_result->predicted_token, (double)custom_result->confidence);
     } else {
         printf("Custom sampling inference failed\n");
     }

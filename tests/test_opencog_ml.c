@@ -26,7 +26,7 @@
 // Mock model path for testing (will be set by test runner if available)
 static const char* test_model_path = NULL;
 
-int test_tensor_operations() {
+int test_tensor_operations(void) {
     printf("\n=== Testing Tensor Operations ===\n");
     
     // Test tensor creation
@@ -80,7 +80,7 @@ int test_tensor_operations() {
     return 1;
 }
 
-int test_engine_management() {
+int test_engine_management(void) {
     printf("\n=== Testing Engine Management ===\n");
     
     if (!test_model_path) {
@@ -136,7 +136,7 @@ int test_engine_management() {
     return 1;
 }
 
-int test_state_management() {
+int test_state_management(void) {
     printf("\n=== Testing State Management ===\n");
     
     if (!test_model_path) {
@@ -169,17 +169,12 @@ int test_state_management() {
     bool reset_success = opencog_ml_reset_state(engine, state);
     TEST_ASSERT(reset_success, "State reset operation");
     
-    // Verify state contains valid data (not all zeros or NaN)
+    // Verify state contains valid data (not NaN or Inf)
     float* state_data = (float*)state->data;
-    bool has_valid_data = false;
     bool has_invalid_data = false;
     
     for (size_t i = 0; i < state->size && i < 100; i++) { // Check first 100 elements
-        if (!isnan(state_data[i]) && !isinf(state_data[i])) {
-            if (fabsf(state_data[i]) > 1e-10f) {
-                has_valid_data = true;
-            }
-        } else {
+        if (isnan(state_data[i]) || isinf(state_data[i])) {
             has_invalid_data = true;
         }
     }
@@ -195,7 +190,7 @@ int test_state_management() {
     return 1;
 }
 
-int test_basic_inference() {
+int test_basic_inference(void) {
     printf("\n=== Testing Basic Inference ===\n");
     
     if (!test_model_path) {
@@ -279,7 +274,7 @@ int test_basic_inference() {
     return 1;
 }
 
-int test_error_handling() {
+int test_error_handling(void) {
     printf("\n=== Testing Error Handling ===\n");
     
     // Test invalid engine configuration
@@ -325,7 +320,7 @@ int test_error_handling() {
     return 1;
 }
 
-int test_utility_functions() {
+int test_utility_functions(void) {
     printf("\n=== Testing Utility Functions ===\n");
     
     // Test debug mode setting (should not crash)

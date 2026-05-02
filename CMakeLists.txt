@@ -176,10 +176,10 @@ if (NOT RWKV_STANDALONE)
     add_executable(opencog_ml_example examples/opencog_ml_example.c)
     target_link_libraries(opencog_ml_example opencog_ml)
     
-    # Add OpenCog ML tests
+    # Add OpenCog ML tests (pass tiny model for inference tests)
     add_executable(test_opencog_ml tests/test_opencog_ml.c)
     target_link_libraries(test_opencog_ml opencog_ml)
-    add_test(NAME opencog_ml_tests COMMAND test_opencog_ml)
+    add_test(NAME opencog_ml_tests COMMAND test_opencog_ml ${CMAKE_SOURCE_DIR}/tests/tiny-rwkv-4v0-660K-FP32.bin)
     
 elseif()
     set(GGML_STANDALONE ON)

@@ -1,0 +1,51 @@
+Start testing: May 02 23:27 UTC
+----------------------------------------------------------
+1/8 Testing: opencog_ml_tests
+1/8 Test: opencog_ml_tests
+Command: "/home/runner/work/ocrwkv.cpp/ocrwkv.cpp/bin/test_opencog_ml"
+Directory: /home/runner/work/ocrwkv.cpp/ocrwkv.cpp
+"opencog_ml_tests" start time: May 02 23:27 UTC
+Output:
+----------------------------------------------------------
+Failed to open file /nonexistent/model.bin
+/home/runner/work/ocrwkv.cpp/ocrwkv.cpp/rwkv_model_loading.inc:295: file.file
+
+/home/runner/work/ocrwkv.cpp/ocrwkv.cpp/rwkv.cpp:115: rwkv_load_model_from_file(file_path, *ctx->model, ngl)
+[OpenCog ML Debug] Debug mode enabled
+OpenCog ML Inference Engine Test Suite
+======================================
+No model provided - skipping inference tests
+Usage: /home/runner/work/ocrwkv.cpp/ocrwkv.cpp/bin/test_opencog_ml [model_path]
+
+=== Testing Tensor Operations ===
+PASS: All tensor operations
+
+=== Testing Engine Management ===
+SKIP: Engine management tests (no model provided)
+
+=== Testing State Management ===
+SKIP: State management tests (no model provided)
+
+=== Testing Basic Inference ===
+SKIP: Basic inference tests (no model provided)
+
+=== Testing Error Handling ===
+PASS: All error handling tests
+
+=== Testing Utility Functions ===
+PASS: Debug mode setting
+System info: AVX=1 AVX2=1 AVX512=0 FMA=1 NEON=0 ARM_FMA=0 F16C=1 FP16_VA=0 WASM_SIMD=0 SSE3=1 VSX=0
+PASS: All utility functions
+
+======================================
+Test Results: 6/6 tests passed
+🎉 All tests passed!
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"opencog_ml_tests" end time: May 02 23:27 UTC
+"opencog_ml_tests" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: May 02 23:27 UTC

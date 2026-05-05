@@ -4,6 +4,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdarg.h>
+#include <time.h>
 
 // Internal tensor structure to track ownership
 struct opencog_ml_tensor_internal {
@@ -70,20 +71,132 @@ static size_t calculate_tensor_size(const size_t * shape, size_t ndim, enum open
     return total_elements * element_size;
 }
 
-// Helper function for softmax sampling
+// Comparison function for qsort (descending probability order)
+typedef struct {
+    float prob;
+    uint32_t index;
+} token_prob_t;
+
+static int compare_token_probs_desc(const void * a, const void * b) {
+    const token_prob_t * pa = (const token_prob_t *)a;
+    const token_prob_t * pb = (const token_prob_t *)b;
+    if (pb->prob > pa->prob) return 1;
+    if (pb->prob < pa->prob) return -1;
+    return 0;
+}
+
+// Helper function for temperature/top-k/top-p sampling
 static uint32_t sample_token(const float * logits, size_t vocab_size, float temperature, uint32_t top_k, float top_p) {
-    // Simple greedy sampling for now - can be enhanced later
-    uint32_t best_token = 0;
-    float best_logit = logits[0];
-    
+    // Greedy sampling when temperature is zero
+    if (temperature <= 0.0f) {
+        uint32_t best_token = 0;
+        float best_logit = logits[0];
+        for (size_t i = 1; i < vocab_size; i++) {
+            if (logits[i] > best_logit) {
+                best_logit = logits[i];
+                best_token = (uint32_t)i;
+            }
+        }
+        return best_token;
+    }
+
+    // Allocate working arrays
+    token_prob_t * probs = (token_prob_t *)malloc(vocab_size * sizeof(token_prob_t));
+    if (!probs) {
+        // Fall back to greedy on allocation failure
+        uint32_t best_token = 0;
+        float best_logit = logits[0];
+        for (size_t i = 1; i < vocab_size; i++) {
+            if (logits[i] > best_logit) {
+                best_logit = logits[i];
+                best_token = (uint32_t)i;
+            }
+        }
+        return best_token;
+    }
+
+    // Find max logit for numerical stability, then compute softmax
+    float max_logit = logits[0];
     for (size_t i = 1; i < vocab_size; i++) {
-        if (logits[i] > best_logit) {
-            best_logit = logits[i];
-            best_token = (uint32_t)i;
+        if (logits[i] > max_logit) max_logit = logits[i];
+    }
+
+    float sum_exp = 0.0f;
+    for (size_t i = 0; i < vocab_size; i++) {
+        probs[i].prob = expf(logits[i] - max_logit);
+        probs[i].index = (uint32_t)i;
+        sum_exp += probs[i].prob;
+    }
+    for (size_t i = 0; i < vocab_size; i++) {
+        probs[i].prob /= sum_exp;
+    }
+
+    // Apply top-k: zero out all but the top-k tokens
+    size_t k = (top_k > 0 && (size_t)top_k < vocab_size) ? (size_t)top_k : vocab_size;
+    if (k < vocab_size) {
+        qsort(probs, vocab_size, sizeof(token_prob_t), compare_token_probs_desc);
+        for (size_t i = k; i < vocab_size; i++) {
+            probs[i].prob = 0.0f;
         }
     }
-    
-    return best_token;
+
+    // Apply top-p (nucleus sampling): zero out tokens below cumulative threshold
+    if (top_p > 0.0f && top_p < 1.0f) {
+        if (k == vocab_size) {
+            // Need sorted order for top-p if top-k didn't sort already
+            qsort(probs, vocab_size, sizeof(token_prob_t), compare_token_probs_desc);
+        }
+        float cumulative = 0.0f;
+        size_t cutoff = vocab_size;
+        for (size_t i = 0; i < vocab_size; i++) {
+            cumulative += probs[i].prob;
+            if (cumulative > top_p) {
+                cutoff = i + 1;
+                break;
+            }
+        }
+        for (size_t i = cutoff; i < vocab_size; i++) {
+            probs[i].prob = 0.0f;
+        }
+    }
+
+    // Apply temperature scaling and renormalize
+    sum_exp = 0.0f;
+    for (size_t i = 0; i < vocab_size; i++) {
+        if (probs[i].prob > 0.0f) {
+            probs[i].prob = powf(probs[i].prob, 1.0f / temperature);
+            sum_exp += probs[i].prob;
+        }
+    }
+    if (sum_exp > 0.0f) {
+        for (size_t i = 0; i < vocab_size; i++) {
+            probs[i].prob /= sum_exp;
+        }
+    }
+
+    // Multinomial sampling: draw a random value in [0, 1)
+    // Seed once on first call using a mix of time and address-space entropy
+    static int seeded = 0;
+    if (!seeded) {
+        // XOR time with a stack-pointer value for sub-second and cross-process variation
+        unsigned int seed = (unsigned int)time(NULL);
+        seed ^= (unsigned int)(uintptr_t)probs;
+        srand(seed);
+        seeded = 1;
+    }
+    float r = (float)rand() / ((float)RAND_MAX + 1.0f);
+    float cumulative = 0.0f;
+    uint32_t sampled = probs[0].index;
+    for (size_t i = 0; i < vocab_size; i++) {
+        cumulative += probs[i].prob;
+        if (r < cumulative) {
+            sampled = probs[i].index;
+            break;
+        }
+    }
+
+    free(probs);
+    return sampled;
 }
 
 // === Core Engine Functions ===
@@ -372,20 +485,21 @@ struct opencog_ml_inference_result * opencog_ml_infer_token(struct opencog_ml_en
     result->logits = opencog_ml_create_tensor_view(logits_buffer, logits_shape, 1, OPENCOG_ML_TYPE_F32);
     result->state = opencog_ml_create_tensor_view(state_buffer, state_shape, 1, OPENCOG_ML_TYPE_F32);
     
-    // Mark these tensors as owning their data since we allocated the buffers
-    if (result->logits) result->logits->owns_data = true;
-    if (result->state) result->state->owns_data = true;
-    
     if (!result->logits || !result->state) {
         debug_log("Failed to create output tensors");
-        free(state_buffer);
-        free(logits_buffer);
+        // Tensors are views (owns_data=false), so free the raw buffers directly
         opencog_ml_free_tensor(result->logits);
         opencog_ml_free_tensor(result->state);
+        free(logits_buffer);
+        free(state_buffer);
         free(result);
         engine->last_error = OPENCOG_ML_ERROR_MEMORY_ALLOCATION;
         return NULL;
     }
+    
+    // Mark these tensors as owning their data since we allocated the buffers
+    result->logits->owns_data = true;
+    result->state->owns_data = true;
     
     // Sample predicted token
     result->predicted_token = sample_token(logits_buffer, logits_len, engine->temperature, engine->top_k, engine->top_p);
@@ -466,20 +580,21 @@ struct opencog_ml_inference_result * opencog_ml_infer_sequence(struct opencog_ml
     result->logits = opencog_ml_create_tensor_view(logits_buffer, logits_shape, 1, OPENCOG_ML_TYPE_F32);
     result->state = opencog_ml_create_tensor_view(state_buffer, state_shape, 1, OPENCOG_ML_TYPE_F32);
     
-    // Mark these tensors as owning their data since we allocated the buffers
-    if (result->logits) result->logits->owns_data = true;
-    if (result->state) result->state->owns_data = true;
-    
     if (!result->logits || !result->state) {
         debug_log("Failed to create output tensors for sequence");
-        free(state_buffer);
-        free(logits_buffer);
+        // Tensors are views (owns_data=false), so free the raw buffers directly
         opencog_ml_free_tensor(result->logits);
         opencog_ml_free_tensor(result->state);
+        free(logits_buffer);
+        free(state_buffer);
         free(result);
         engine->last_error = OPENCOG_ML_ERROR_MEMORY_ALLOCATION;
         return NULL;
     }
+    
+    // Mark these tensors as owning their data since we allocated the buffers
+    result->logits->owns_data = true;
+    result->state->owns_data = true;
     
     // Sample predicted token from final logits
     result->predicted_token = sample_token(logits_buffer, logits_len, engine->temperature, engine->top_k, engine->top_p);

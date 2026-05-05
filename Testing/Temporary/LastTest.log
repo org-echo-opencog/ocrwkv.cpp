@@ -1,0 +1,381 @@
+Start testing: May 02 23:34 UTC
+----------------------------------------------------------
+1/8 Testing: opencog_ml_tests
+1/8 Test: opencog_ml_tests
+Command: "/home/runner/work/ocrwkv.cpp/ocrwkv.cpp/bin/test_opencog_ml" "/home/runner/work/ocrwkv.cpp/ocrwkv.cpp/tests/tiny-rwkv-4v0-660K-FP32.bin"
+Directory: /home/runner/work/ocrwkv.cpp/ocrwkv.cpp
+"opencog_ml_tests" start time: May 02 23:34 UTC
+Output:
+----------------------------------------------------------
+Failed to open file /nonexistent/model.bin
+/home/runner/work/ocrwkv.cpp/ocrwkv.cpp/rwkv_model_loading.inc:295: file.file
+
+/home/runner/work/ocrwkv.cpp/ocrwkv.cpp/rwkv.cpp:115: rwkv_load_model_from_file(file_path, *ctx->model, ngl)
+[OpenCog ML Debug] Debug mode enabled
+OpenCog ML Inference Engine Test Suite
+======================================
+Using test model: /home/runner/work/ocrwkv.cpp/ocrwkv.cpp/tests/tiny-rwkv-4v0-660K-FP32.bin
+
+=== Testing Tensor Operations ===
+PASS: All tensor operations
+
+=== Testing Engine Management ===
+Model info: vocab=256, embed=128, state=2560
+PASS: All engine management operations
+
+=== Testing State Management ===
+PASS: All state management operations
+
+=== Testing Basic Inference ===
+PASS: All basic inference operations
+
+=== Testing Error Handling ===
+PASS: All error handling tests
+
+=== Testing Utility Functions ===
+PASS: Debug mode setting
+System info: AVX=1 AVX2=1 AVX512=0 FMA=1 NEON=0 ARM_FMA=0 F16C=1 FP16_VA=0 WASM_SIMD=0 SSE3=1 VSX=0
+PASS: All utility functions
+
+======================================
+Test Results: 6/6 tests passed
+🎉 All tests passed!
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"opencog_ml_tests" end time: May 02 23:34 UTC
+"opencog_ml_tests" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/8 Testing: test_ggml_basics
+2/8 Test: test_ggml_basics
+Command: "/home/runner/work/ocrwkv.cpp/ocrwkv.cpp/bin/test_ggml_basics"
+Directory: /home/runner/work/ocrwkv.cpp/ocrwkv.cpp/tests
+"test_ggml_basics" start time: May 02 23:34 UTC
+Output:
+----------------------------------------------------------
+ggml_print_objects: objects in context 0x55b48e5d1340:
+ - ggml_object: type = 0, offset = 32, size = 352, next = 0x55b48e5d1540
+ - ggml_object: type = 0, offset = 416, size = 352, next = 0x55b48e5d16c0
+ - ggml_object: type = 0, offset = 800, size = 352, next = 0x55b48e5d1840
+ - ggml_object: type = 1, offset = 1184, size = 66160, next = (nil)
+ggml_print_objects: --- end ---
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"test_ggml_basics" end time: May 02 23:34 UTC
+"test_ggml_basics" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/8 Testing: test_quantized_matmul_on_gpu
+3/8 Test: test_quantized_matmul_on_gpu
+Command: "/home/runner/work/ocrwkv.cpp/ocrwkv.cpp/bin/test_quantized_matmul_on_gpu"
+Directory: /home/runner/work/ocrwkv.cpp/ocrwkv.cpp/tests
+"test_quantized_matmul_on_gpu" start time: May 02 23:34 UTC
+Output:
+----------------------------------------------------------
+Skipping test_quantized_matmul_on_gpu.c: GGML_USE_CUDA is not defined
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"test_quantized_matmul_on_gpu" end time: May 02 23:34 UTC
+"test_quantized_matmul_on_gpu" time elapsed: 00:00:00
+----------------------------------------------------------
+
+4/8 Testing: test_tiny_rwkv
+4/8 Test: test_tiny_rwkv
+Command: "/home/runner/work/ocrwkv.cpp/ocrwkv.cpp/bin/test_tiny_rwkv"
+Directory: /home/runner/work/ocrwkv.cpp/ocrwkv.cpp/tests
+"test_tiny_rwkv" start time: May 02 23:34 UTC
+Output:
+----------------------------------------------------------
+System info: AVX=1 AVX2=1 AVX512=0 FMA=1 NEON=0 ARM_FMA=0 F16C=1 FP16_VA=0 WASM_SIMD=0 SSE3=1 VSX=0
+Testing tiny-rwkv-4v0-660K-FP32.bin
+Serial difference sum: 0.000000, expected 0.001000
+Sequence difference sum: 0.000000, expected 0.001000
+Testing tiny-rwkv-4v0-660K-FP16.bin
+Serial difference sum: -0.005320, expected -0.013652
+Sequence difference sum: -0.005320, expected -0.013652
+Testing tiny-rwkv-4v0-660K-FP32-to-Q4_0.bin
+Serial difference sum: 0.160593, expected -0.160030
+Sequence difference sum: 0.160593, expected -0.160030
+Testing tiny-rwkv-4v0-660K-FP16-to-Q4_0.bin
+Serial difference sum: 0.159087, expected 0.154614
+Sequence difference sum: 0.159087, expected 0.154614
+Testing tiny-rwkv-4v0-660K-FP32-to-Q4_1.bin
+Serial difference sum: -0.375361, expected -0.547409
+Sequence difference sum: -0.375361, expected -0.547409
+Testing tiny-rwkv-4v0-660K-FP16-to-Q4_1.bin
+Serial difference sum: -0.364256, expected -0.539827
+Sequence difference sum: -0.364256, expected -0.539827
+Testing tiny-rwkv-4v0-660K-FP32-to-Q5_0.bin
+Serial difference sum: -0.169249, expected -0.170404
+Sequence difference sum: -0.169249, expected -0.170404
+Testing tiny-rwkv-4v0-660K-FP16-to-Q5_0.bin
+Serial difference sum: -0.172253, expected -0.180142
+Sequence difference sum: -0.172253, expected -0.180142
+Testing tiny-rwkv-4v0-660K-FP32-to-Q5_1.bin
+Serial difference sum: 0.283841, expected 0.278034
+Sequence difference sum: 0.283841, expected 0.278034
+Testing tiny-rwkv-4v0-660K-FP16-to-Q5_1.bin
+Serial difference sum: 0.294282, expected 0.294953
+Sequence difference sum: 0.294282, expected 0.294953
+Testing tiny-rwkv-4v0-660K-FP32-to-Q8_0.bin
+Serial difference sum: 0.076278, expected 0.076282
+Sequence difference sum: 0.076278, expected 0.076282
+Testing tiny-rwkv-4v0-660K-FP16-to-Q8_0.bin
+Serial difference sum: 0.070941, expected 0.077226
+Sequence difference sum: 0.070941, expected 0.077226
+Testing tiny-rwkv-5v1-730K-FP32.bin
+Serial difference sum: 0.000112, expected 0.001000
+Sequence difference sum: 0.000112, expected 0.001000
+Testing tiny-rwkv-5v1-730K-FP16.bin
+Serial difference sum: -0.253945, expected -0.289921
+Sequence difference sum: -0.253945, expected -0.289921
+Testing tiny-rwkv-5v1-730K-FP32-to-Q4_0.bin
+Serial difference sum: 117.932564, expected 117.932594
+Sequence difference sum: 117.932564, expected 117.932594
+Testing tiny-rwkv-5v1-730K-FP16-to-Q4_0.bin
+Serial difference sum: 113.682098, expected 119.471931
+Sequence difference sum: 113.682098, expected 119.471931
+Testing tiny-rwkv-5v1-730K-FP32-to-Q4_1.bin
+Serial difference sum: -12.357586, expected -26.712271
+Sequence difference sum: -12.357586, expected -26.712271
+Testing tiny-rwkv-5v1-730K-FP16-to-Q4_1.bin
+Serial difference sum: -17.329422, expected -28.245888
+Sequence difference sum: -17.329422, expected -28.245888
+Testing tiny-rwkv-5v1-730K-FP32-to-Q5_0.bin
+Serial difference sum: -159.434143, expected -163.439407
+Sequence difference sum: -159.434143, expected -163.439407
+Testing tiny-rwkv-5v1-730K-FP16-to-Q5_0.bin
+Serial difference sum: -153.646347, expected -159.870956
+Sequence difference sum: -153.646347, expected -159.870956
+Testing tiny-rwkv-5v1-730K-FP32-to-Q5_1.bin
+Serial difference sum: -13.983187, expected -18.017435
+Sequence difference sum: -13.983187, expected -18.017435
+Testing tiny-rwkv-5v1-730K-FP16-to-Q5_1.bin
+Serial difference sum: -25.530575, expected -39.708530
+Sequence difference sum: -25.530575, expected -39.708530
+Testing tiny-rwkv-5v1-730K-FP32-to-Q8_0.bin
+Serial difference sum: 0.585173, expected 0.585238
+Sequence difference sum: 0.585173, expected 0.585238
+Testing tiny-rwkv-5v1-730K-FP16-to-Q8_0.bin
+Serial difference sum: -0.942116, expected -0.962695
+Sequence difference sum: -0.942116, expected -0.962695
+Testing tiny-rwkv-5v2-730K-FP32.bin
+Serial difference sum: 0.000055, expected 0.001000
+Sequence difference sum: 0.000055, expected 0.001000
+Testing tiny-rwkv-5v2-730K-FP16.bin
+Serial difference sum: 0.056704, expected 0.455912
+Sequence difference sum: 0.056704, expected 0.455912
+Testing tiny-rwkv-5v2-730K-FP32-to-Q4_0.bin
+Serial difference sum: 33.464848, expected 35.271305
+Sequence difference sum: 33.464848, expected 35.271305
+Testing tiny-rwkv-5v2-730K-FP16-to-Q4_0.bin
+Serial difference sum: 30.676586, expected 34.135971
+Sequence difference sum: 30.676586, expected 34.135971
+Testing tiny-rwkv-5v2-730K-FP32-to-Q4_1.bin
+Serial difference sum: 65.729103, expected 67.015076
+Sequence difference sum: 65.729103, expected 67.015076
+Testing tiny-rwkv-5v2-730K-FP16-to-Q4_1.bin
+Serial difference sum: 65.570747, expected 65.573822
+Sequence difference sum: 65.570747, expected 65.573822
+Testing tiny-rwkv-5v2-730K-FP32-to-Q5_0.bin
+Serial difference sum: 24.209337, expected 25.273308
+Sequence difference sum: 24.209337, expected 25.273308
+Testing tiny-rwkv-5v2-730K-FP16-to-Q5_0.bin
+Serial difference sum: 20.665133, expected 21.588751
+Sequence difference sum: 20.665133, expected 21.588751
+Testing tiny-rwkv-5v2-730K-FP32-to-Q5_1.bin
+Serial difference sum: 38.266994, expected 48.068733
+Sequence difference sum: 38.266994, expected 48.068733
+Testing tiny-rwkv-5v2-730K-FP16-to-Q5_1.bin
+Serial difference sum: 28.626303, expected 29.726818
+Sequence difference sum: 28.626303, expected 29.726818
+Testing tiny-rwkv-5v2-730K-FP32-to-Q8_0.bin
+Serial difference sum: -8.358410, expected -9.441034
+Sequence difference sum: -8.358410, expected -9.441034
+Testing tiny-rwkv-5v2-730K-FP16-to-Q8_0.bin
+Serial difference sum: -6.628290, expected -7.242277
+Sequence difference sum: -6.628290, expected -7.242277
+Testing tiny-rwkv-6v0-3m-FP32.bin
+Serial difference sum: 0.000018, expected 0.001000
+Sequence difference sum: 0.000018, expected 0.001000
+Testing tiny-rwkv-6v0-3m-FP16.bin
+Serial difference sum: 0.210165, expected -0.416620
+Sequence difference sum: 0.210165, expected -0.416620
+Testing tiny-rwkv-6v0-3m-FP32-to-Q4_0.bin
+Serial difference sum: -2.769104, expected -7.588121
+Sequence difference sum: -2.769104, expected -7.588121
+Testing tiny-rwkv-6v0-3m-FP16-to-Q4_0.bin
+Serial difference sum: -2.802125, expected -7.660988
+Sequence difference sum: -2.802125, expected -7.660988
+Testing tiny-rwkv-6v0-3m-FP32-to-Q4_1.bin
+Serial difference sum: 20.815357, expected 21.939022
+Sequence difference sum: 20.815357, expected 21.939022
+Testing tiny-rwkv-6v0-3m-FP16-to-Q4_1.bin
+Serial difference sum: 20.781773, expected 21.797060
+Sequence difference sum: 20.781773, expected 21.797060
+Testing tiny-rwkv-6v0-3m-FP32-to-Q5_0.bin
+Serial difference sum: -21.151785, expected -27.332073
+Sequence difference sum: -21.151785, expected -27.332073
+Testing tiny-rwkv-6v0-3m-FP16-to-Q5_0.bin
+Serial difference sum: -20.798380, expected -27.269241
+Sequence difference sum: -20.798380, expected -27.269241
+Testing tiny-rwkv-6v0-3m-FP32-to-Q5_1.bin
+Serial difference sum: 1.409082, expected 3.576909
+Sequence difference sum: 1.409082, expected 3.576909
+Testing tiny-rwkv-6v0-3m-FP16-to-Q5_1.bin
+Serial difference sum: 1.188163, expected 3.405264
+Sequence difference sum: 1.188163, expected 3.405264
+Testing tiny-rwkv-6v0-3m-FP32-to-Q8_0.bin
+Serial difference sum: -4.863513, expected -9.539596
+Sequence difference sum: -4.863513, expected -9.539596
+Testing tiny-rwkv-6v0-3m-FP16-to-Q8_0.bin
+Serial difference sum: -4.892769, expected -9.734720
+Sequence difference sum: -4.892769, expected -9.734720
+Testing tiny-rwkv-7v0-834K-FP32.bin
+Serial difference sum: -0.000000, expected 0.001000
+Sequence difference sum: -0.000000, expected 0.001000
+Testing tiny-rwkv-7v0-834K-FP16.bin
+Serial difference sum: 0.005222, expected 0.005766
+Sequence difference sum: 0.005222, expected 0.005766
+Testing tiny-rwkv-7v0-834K-FP32-to-Q4_0.bin
+Serial difference sum: 0.136786, expected 0.136785
+Sequence difference sum: 0.136786, expected 0.136785
+Testing tiny-rwkv-7v0-834K-FP16-to-Q4_0.bin
+Serial difference sum: 0.136679, expected 0.136678
+Sequence difference sum: 0.136679, expected 0.136678
+Testing tiny-rwkv-7v0-834K-FP32-to-Q4_1.bin
+Serial difference sum: 0.002614, expected 0.002614
+Sequence difference sum: 0.002614, expected 0.002614
+Testing tiny-rwkv-7v0-834K-FP16-to-Q4_1.bin
+Serial difference sum: -0.005140, expected -0.005140
+Sequence difference sum: -0.005140, expected -0.005140
+Testing tiny-rwkv-7v0-834K-FP32-to-Q5_0.bin
+Serial difference sum: -0.063646, expected -0.063645
+Sequence difference sum: -0.063646, expected -0.063645
+Testing tiny-rwkv-7v0-834K-FP16-to-Q5_0.bin
+Serial difference sum: -0.064447, expected -0.064447
+Sequence difference sum: -0.064447, expected -0.064447
+Testing tiny-rwkv-7v0-834K-FP32-to-Q5_1.bin
+Serial difference sum: -0.064535, expected -0.064663
+Sequence difference sum: -0.064535, expected -0.064663
+Testing tiny-rwkv-7v0-834K-FP16-to-Q5_1.bin
+Serial difference sum: -0.063531, expected -0.063531
+Sequence difference sum: -0.063531, expected -0.063531
+Testing tiny-rwkv-7v0-834K-FP32-to-Q8_0.bin
+Serial difference sum: 0.011924, expected 0.011924
+Sequence difference sum: 0.011924, expected 0.011924
+Testing tiny-rwkv-7v0-834K-FP16-to-Q8_0.bin
+Serial difference sum: 0.010921, expected 0.010921
+Sequence difference sum: 0.010921, expected 0.010921
+<end of output>
+Test time =   0.69 sec
+----------------------------------------------------------
+Test Passed.
+"test_tiny_rwkv" end time: May 02 23:34 UTC
+"test_tiny_rwkv" time elapsed: 00:00:00
+----------------------------------------------------------
+
+5/8 Testing: test_quantization_format_compatibility
+5/8 Test: test_quantization_format_compatibility
+Command: "/home/runner/work/ocrwkv.cpp/ocrwkv.cpp/bin/test_quantization_format_compatibility"
+Directory: /home/runner/work/ocrwkv.cpp/ocrwkv.cpp/tests
+"test_quantization_format_compatibility" start time: May 02 23:34 UTC
+Output:
+----------------------------------------------------------
+System info: AVX=1 AVX2=1 AVX512=0 FMA=1 NEON=0 ARM_FMA=0 F16C=1 FP16_VA=0 WASM_SIMD=0 SSE3=1 VSX=0
+Testing tiny-rwkv-4v0-660K-Q5_0.bin
+Serial difference sum: -0.169249, expected -0.170404
+Sequence difference sum: -0.169249, expected -0.170404
+Testing tiny-rwkv-4v0-660K-Q5_1.bin
+Serial difference sum: 0.283841, expected 0.278034
+Sequence difference sum: 0.283841, expected 0.278034
+Testing tiny-rwkv-5v1-730K-Q5_0.bin
+Serial difference sum: -159.434143, expected -163.439407
+Sequence difference sum: -159.434143, expected -163.439407
+Testing tiny-rwkv-5v1-730K-Q5_1.bin
+Serial difference sum: -13.983187, expected -18.017435
+Sequence difference sum: -13.983187, expected -18.017435
+Testing tiny-rwkv-5v2-730K-Q5_0.bin
+Serial difference sum: 24.209337, expected 25.273308
+Sequence difference sum: 24.209337, expected 25.273308
+Testing tiny-rwkv-5v2-730K-Q5_1.bin
+Serial difference sum: 38.266994, expected 48.068733
+Sequence difference sum: 38.266994, expected 48.068733
+Testing tiny-rwkv-6v0-3m-Q5_0.bin
+Serial difference sum: -21.151785, expected -21.151785
+Sequence difference sum: -21.151785, expected -21.151785
+Testing tiny-rwkv-6v0-3m-Q5_1.bin
+Serial difference sum: 1.409082, expected 3.576909
+Sequence difference sum: 1.409082, expected 3.576909
+<end of output>
+Test time =   0.07 sec
+----------------------------------------------------------
+Test Passed.
+"test_quantization_format_compatibility" end time: May 02 23:34 UTC
+"test_quantization_format_compatibility" time elapsed: 00:00:00
+----------------------------------------------------------
+
+6/8 Testing: test_logit_calculation_skipping
+6/8 Test: test_logit_calculation_skipping
+Command: "/home/runner/work/ocrwkv.cpp/ocrwkv.cpp/bin/test_logit_calculation_skipping"
+Directory: /home/runner/work/ocrwkv.cpp/ocrwkv.cpp/tests
+"test_logit_calculation_skipping" start time: May 02 23:34 UTC
+Output:
+----------------------------------------------------------
+Testing serial mode
+Testing sequential mode
+<end of output>
+Test time =   0.03 sec
+----------------------------------------------------------
+Test Passed.
+"test_logit_calculation_skipping" end time: May 02 23:34 UTC
+"test_logit_calculation_skipping" time elapsed: 00:00:00
+----------------------------------------------------------
+
+7/8 Testing: test_eval_sequence_in_chunks
+7/8 Test: test_eval_sequence_in_chunks
+Command: "/home/runner/work/ocrwkv.cpp/ocrwkv.cpp/bin/test_eval_sequence_in_chunks"
+Directory: /home/runner/work/ocrwkv.cpp/ocrwkv.cpp/tests
+"test_eval_sequence_in_chunks" start time: May 02 23:34 UTC
+Output:
+----------------------------------------------------------
+Calculating expected state and logits for prompt of size 70
+Testing chunk_size = 1
+Testing chunk_size = 2
+Testing chunk_size = 8
+Testing chunk_size = 10
+Calculating expected state and logits for prompt of size 1
+Testing chunk_size = 1
+Testing chunk_size = 2
+Testing chunk_size = 8
+Testing chunk_size = 10
+<end of output>
+Test time =   0.16 sec
+----------------------------------------------------------
+Test Passed.
+"test_eval_sequence_in_chunks" end time: May 02 23:34 UTC
+"test_eval_sequence_in_chunks" time elapsed: 00:00:00
+----------------------------------------------------------
+
+8/8 Testing: test_context_cloning
+8/8 Test: test_context_cloning
+Command: "/home/runner/work/ocrwkv.cpp/ocrwkv.cpp/bin/test_context_cloning"
+Directory: /home/runner/work/ocrwkv.cpp/ocrwkv.cpp/tests
+"test_context_cloning" start time: May 02 23:34 UTC
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"test_context_cloning" end time: May 02 23:34 UTC
+"test_context_cloning" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: May 02 23:34 UTC
